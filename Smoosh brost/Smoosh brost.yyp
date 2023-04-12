@@ -34,10 +34,20 @@
     "IDEVersion": "2023.2.1.75",
   },
   "resources": [
+    {"id":{"name":"scr_files","path":"scripts/scr_files/scr_files.yy",},},
+    {"id":{"name":"scr_setup","path":"scripts/scr_setup/scr_setup.yy",},},
+    {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
+    {"id":{"name":"spr_test","path":"sprites/spr_test/spr_test.yy",},},
+    {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
+    {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
+    {"id":{"name":"scr_macky_wackies","path":"scripts/scr_macky_wackies/scr_macky_wackies.yy",},},
+    {"id":{"name":"rm_battlelocal_test","path":"rooms/rm_battlelocal_test/rm_battlelocal_test.yy",},},
+    {"id":{"name":"nt_goals","path":"notes/nt_goals/nt_goals.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"roomId":{"name":"rm_battlelocal_test","path":"rooms/rm_battlelocal_test/rm_battlelocal_test.yy",},},
   ],
   "TextureGroups": [
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},

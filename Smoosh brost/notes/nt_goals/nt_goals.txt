@@ -1,0 +1,4 @@
+---MAIN
+--Player object that works with GMS2 free online
+--Players cannot pass thru tile walls or object walls
+--camera that follows the centre of all players
