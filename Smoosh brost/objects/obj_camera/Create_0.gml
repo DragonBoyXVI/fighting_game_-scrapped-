@@ -8,7 +8,7 @@ if instance_number(object_index) > 1 then {
 lens_current = 1
 view_buffer = 128
 
-lerp_spd = 0.75
+lerp_spd = 0.5
 
 xto = 0
 yto = 0

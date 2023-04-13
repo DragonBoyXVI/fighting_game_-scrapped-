@@ -1,3 +1,8 @@
+
+
+
+
+/*old
 //helpers
 function fun_check_collision_below(_dist, _tiles = true, _objects = true) {
 	
@@ -75,8 +80,8 @@ function fun_check_collision_right(_dist, _tiles = true, _objects = true) {
 	
 	if (_tiles and wall_elem != -1) then {
 		
-		if (tilemap_get_at_pixel(wall_elem, _bbox_right_true, y+bbox_height/2) == 1 //center
-		or tilemap_get_at_pixel(wall_elem, _bbox_right_true, bbox_bottom) == 1 //bottom
+		if (tilemap_get_at_pixel(wall_elem, _bbox_right_true, bbox_bottom+bbox_height/2) == 1 //center
+		or tilemap_get_at_pixel(wall_elem, _bbox_right_true, bbox_bottom-1) == 1 //bottom
 		or tilemap_get_at_pixel(wall_elem, _bbox_right_true, bbox_top) == 1) then { //top
 			
 			_array[0] = true
@@ -109,8 +114,8 @@ function fun_check_collision_left(_dist, _tiles = true, _objects = true) {
 	
 	if (_tiles and wall_elem != -1) then {
 		
-		if (tilemap_get_at_pixel(wall_elem, _bbox_left_true, y+bbox_height/2) == 1 //center
-		or tilemap_get_at_pixel(wall_elem, _bbox_left_true, bbox_bottom) == 1 //bottom
+		if (tilemap_get_at_pixel(wall_elem, _bbox_left_true, bbox_bottom+bbox_height/2) == 1 //center
+		or tilemap_get_at_pixel(wall_elem, _bbox_left_true, bbox_bottom-1) == 1 //bottom
 		or tilemap_get_at_pixel(wall_elem, _bbox_left_true, bbox_top) == 1) then { //top
 			
 			_array[0] = true
@@ -152,10 +157,21 @@ function fun_state_in_play_on_ground() {
 		}
 	}
 	
+	x += _spd
+	if (_input.up) then {
+		hspd = _spd
+		vspd = -jump_speed
+		y -= 4
+		state_func = fun_state_in_play_in_air
+		state_changes++
+		exit
+	}
+	
 	var _floor = fun_check_collision_below(1)
 	
 	if (not _floor[0]) then {
 		state_func = fun_state_in_play_in_air
+		state_changes++
 	}
 	
 }
@@ -166,26 +182,51 @@ function fun_state_in_play_in_air() {
 	
 	var _dir_pressed = (_input.right - _input.left)
 	
-	if (_dir_pressed > 0) then {
-		hspd = min(spd, hspd + (spd * air_control))
-	} else if (_dir_pressed < 0) then {
-		hspd = max(-spd, hspd - (spd * air_control))
-	}
+	hspd = clamp(hspd + (spd * air_control * 5), -spd, spd)
 	
+	if hspd > 0 then {
+		while(fun_check_collision_right(hspd)[0]){
+			hspd--
+		}
+	} else if hspd < 0 then {
+		while(fun_check_collision_left(-hspd)[0]){
+			hspd++
+		}
+	}
 	x += hspd
 	vspd = min(terminal_speed, vspd + weight/32)
 	var _floor = -1
-	repeat(vspd){
+	if vspd > 0 then { //going down
 		
-		_floor = fun_check_collision_below(1)
-		if _floor[0] then {//stop falling
+		repeat(vspd){
 			
-			state_func = fun_state_in_play_on_ground
-			vspd = 0
-			hspd = 0
+			_floor = fun_check_collision_below(1)
+			if _floor[0] then {//stop falling
+				
+				state_func = fun_state_in_play_on_ground
+				state_changes++
+				vspd = 0
+				hspd = 0
+				
+			} else {
+				y++
+			}
 			
-		} else {
-			y++
+		}
+		
+	} else if vspd < 0 then { //goin wupwards
+		
+		repeat(-vspd){
+			
+			_floor = fun_check_collision_above(1)
+			if _floor[0] then {//stop rising
+				
+				vspd = 0
+				
+			} else {
+				y--
+			}
+			
 		}
 		
 	}

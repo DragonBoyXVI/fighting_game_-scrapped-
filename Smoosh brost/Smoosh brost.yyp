@@ -43,6 +43,7 @@
     {"id":{"name":"spr_test","path":"sprites/spr_test/spr_test.yy",},},
     {"id":{"name":"scr_enums","path":"scripts/scr_enums/scr_enums.yy",},},
     {"id":{"name":"spr_tile_walls","path":"sprites/spr_tile_walls/spr_tile_walls.yy",},},
+    {"id":{"name":"spr_pix_hollow","path":"sprites/spr_pix_hollow/spr_pix_hollow.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"scr_macky_wackies","path":"scripts/scr_macky_wackies/scr_macky_wackies.yy",},},

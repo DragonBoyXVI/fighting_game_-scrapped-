@@ -2,6 +2,9 @@
 //y = random_range(0, room_height)
 
 is_ai = false
+my_ai = -1
+
+state_changes = 0
 
 if player_id == 0 then {
 	x = 500
@@ -12,18 +15,21 @@ if player_id == 0 then {
 	is_ai = true
 }
 
-my_ai = -1
-
 ignore_me = false
 
 state = P_STATE.IN_PLAY
-state_func = fun_state_in_play_on_ground  //-1
+state_func = function() {}//fun_state_in_play_on_ground  //-1
 
 spd = 6
 air_control = 0.01
 
 hspd = 0
 vspd = 0
+
+jumps_max = 1
+jumps_cur = 0
+
+jump_speed = 32
 
 weight = 68 //kg
 terminal_speed = 100
