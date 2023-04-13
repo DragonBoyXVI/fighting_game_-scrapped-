@@ -13,10 +13,15 @@ if y > room_height then {
 	
 }
 
-/*
+
 if player_local then {
-	global.timescale += (keyboard_check(ord("P")) - keyboard_check(ord("O")))/10
-	global.grav_scale += (keyboard_check(ord("K")) - keyboard_check(ord("L")))/10
+	
+	if keyboard_check(ord("O")) then global.timescale = 0.5
+	if keyboard_check(ord("P")) then global.timescale = 1
+	
+	if keyboard_check(ord("K")) then global.grav_scale = 0.5
+	if keyboard_check(ord("L")) then global.grav_scale = 1
+	
 }
 
 /*

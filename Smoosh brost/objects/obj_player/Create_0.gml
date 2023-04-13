@@ -1,10 +1,21 @@
 //x = random_range(0, room_width)
 //y = random_range(0, room_height)
 
+global.player_data[player_id] = {
+	
+	object: other.id,
+	stocks: 3,
+	kills: 0,
+	points: 0,
+	
+}
+
 is_ai = false
 my_ai = -1
 
 state_changes = 0
+
+cur_damage = 0
 
 if player_id == 0 then {
 	x = 500

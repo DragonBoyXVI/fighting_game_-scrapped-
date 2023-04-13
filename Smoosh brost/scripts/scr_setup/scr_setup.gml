@@ -6,7 +6,7 @@ var _example_player = {
 	points: 3,
 }
 
-global.player_data = array_create(4, -1)
+global.player_data = array_create(4, {})
 
 global.timescale = 1
 //global.grav_spd = 1

@@ -34,22 +34,25 @@ function fun_state_in_play_in_air() { //in the air, still regular play
 	}
 	
 	//air strafe left and right
-	var _xspd = spd * (input.right - input.left) * cur_timescale * air_control * 5
+	var _xspd = spd * (input.right - input.left) * air_control * 5
 	xspd = _xspd == 0 ? xspd : clamp(xspd + _xspd, -spd, spd)
 	var _xspd_sign = sign(xspd)
+	var _xspd_true = xspd * cur_timescale * cur_gravity
 	
 	var _friction = false
 	
 	//check for ceiling and floor
-	yspd = min(yspd + weight/FALLING_WEIGHT_DIV, terminal_speed)
+	yspd = min(yspd + (weight/FALLING_WEIGHT_DIV * cur_timescale * cur_gravity), terminal_speed)
+	var _yspd_true = yspd * cur_timescale * cur_gravity
 	
-	if yspd > 0 then { //falling
+	
+	if _yspd_true > 0 then { //falling
 		
-		if place_meeting(x, y + yspd, obj_wall) then { //going to hit a floor? Land on top of it
+		if place_meeting(x, y + _yspd_true, obj_wall) then { //going to hit a floor? Land on top of it
 			
 			yspd--
-			while(place_meeting(x, y + yspd, obj_wall)) { yspd-- }
-			y += yspd
+			while(place_meeting(x, y + _yspd_true, obj_wall)) { _yspd_true-- }
+			y += _yspd_true
 			state_changes++
 			state_func = fun_state_in_play_on_ground
 			jumps_cur = 0
@@ -59,22 +62,22 @@ function fun_state_in_play_in_air() { //in the air, still regular play
 			
 		} else {
 			
-			y += yspd
+			y += _yspd_true
 			
 		}
 		
-	} else if yspd < 0 then { //rising
+	} else if _yspd_true < 0 then { //rising
 		
-		if place_meeting(x, y + yspd, obj_wall) then { //going to hit the ceiling? stop just below it
+		if place_meeting(x, y + _yspd_true, obj_wall) then { //going to hit the ceiling? stop just below it
 			
-			yspd++
-			while(place_meeting(x, y + yspd, obj_wall)) { yspd++ }
-			y += yspd
+			_yspd_true++
+			while(place_meeting(x, y + _yspd_true, obj_wall)) { _yspd_true++ }
+			y += _yspd_true
 			_friction = true
 			
 		} else {
 			
-			y += yspd
+			y += _yspd_true
 			
 		}
 		
