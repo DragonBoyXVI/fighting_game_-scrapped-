@@ -17,16 +17,21 @@ if player_id == 0 then {
 
 ignore_me = false
 
+input = {}
+
+cur_gravity = global.grav_scale
+cur_timescale = global.timescale
+
 state = P_STATE.IN_PLAY
-state_func = function() {}//fun_state_in_play_on_ground  //-1
+state_func = fun_state_in_play_on_ground  //-1
 
 spd = 6
-air_control = 0.01
+air_control = 0.1
 
-hspd = 0
-vspd = 0
+xspd = 0
+yspd = 0
 
-jumps_max = 1
+jumps_max = 5//1
 jumps_cur = 0
 
 jump_speed = 32

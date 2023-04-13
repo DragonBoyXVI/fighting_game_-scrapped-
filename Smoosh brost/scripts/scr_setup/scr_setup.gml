@@ -9,7 +9,7 @@ var _example_player = {
 global.player_data = array_create(4, -1)
 
 global.timescale = 1
-global.grav_spd = 1
+//global.grav_spd = 1
 global.grav_scale = 1
 
 global.settings = -1
